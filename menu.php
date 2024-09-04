@@ -11,10 +11,11 @@
     
     <ul id="nav">
         <li><a href="rooms.php">STOŁY</a></li>
+        <li><a href="users.php">KRASNOLUDY</a></li>
         <?php
         if(isset($_SESSION['login'])) {
 
-            echo "<li><a href='profile.php?ID={$_SESSION['id']}'>PROFIL</a></li>";
+            echo "<li><a href='profile.php?id={$_SESSION['id']}'>PROFIL</a></li>";
             echo "<li><a href='logout.php'>WYLOGUJ</a></li>";
         } else {
 

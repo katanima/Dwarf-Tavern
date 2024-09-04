@@ -39,9 +39,11 @@
         }
         echo $bio;
 
+
         echo "<h4>Zainteresowania</h4>";
         $sql = "SELECT interestId FROM usersinterests WHERE userId=$id";
         $result = $conn->query($sql);
+        
         echo "<ul>";
             while( $row = $result->fetch_object() ) {
 
@@ -52,12 +54,28 @@
             }
         echo "</ul>";
         echo "<p>Członek od: {$createDate}</p>";
-        
+
+
         if( $profileId == $userId ) {
+
             echo "<form metod='POST'>";
                 echo "<input type='submit' value='EDYTUJ PROFIL'>";
             echo "</form>";
+
+        } else {
+
+            //private chat
+            echo "<button id='privateChatButton'>Otwórz chat</button>";
+            echo "<div class='privateChat'>";
+                echo "<div id='messages'>";
+                    require("generateMessages.php");
+                echo "</div>";
+                echo "<br><textarea id='messageContent' rows='4' cols='50'></textarea>";
+                echo "<button id='sendMessage' data-id='$profileId' data-chatType='room'>SEND</button>";
+            echo "</div>";
         }
+
+
     } else {
 
         echo "<h3>Mój profil</h3>";
@@ -118,5 +136,7 @@
     echo "</div>";
 ?>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="general.js"></script>
 </body>
 </html>

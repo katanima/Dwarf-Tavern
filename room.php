@@ -87,7 +87,6 @@
 <div id="chat">
     <h4>Chat</h4>
     <div id="messages">
-        <?php require("generateMessages.php") ?>
     </div>
     
     <br><textarea id="messageContent" rows="4" cols="50"></textarea>
@@ -119,9 +118,9 @@
         echo "<p>$string</p>";
     ?>
 </div>
+</div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="general.js"></script>
-</div>
-</div>
 </body>
 </html>

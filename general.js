@@ -2,10 +2,13 @@ $(document).ready(function(){
 
     /* refresh chat every second */
     var intervalId = window.setInterval(refreshMessages, 1000);
+    refreshMessages();
+
     function refreshMessages() {
 
         $.post("generateMessages.php",
-            { roomId: $("#sendMessage").data("room") },
+            { roomId: $("#sendMessage").data("id"),
+            chatType: $("#sendMessage").data("chatType") },
             function(data) {
                 
             $("#messages").empty();
@@ -21,7 +24,9 @@ $(document).ready(function(){
         const akapit = $(this);
 
         $.post("sendMessage.php",
-        { content: $("#messageContent").val(), roomId: akapit.data("room") },
+        { content: $("#messageContent").val(),
+        id: akapit.data("id"),
+        chatType: akapit.data("chatType") },
         function(data) {
 
             if( data === "success" ) {
@@ -191,6 +196,22 @@ $(document).ready(function(){
 
             refreshList();
             
+        });
+    });
+
+
+    $( "#submit" ).on("click", function() {
+
+        $.post( "searchUsers.php",
+        { nick: $( "#nick" ).val(),
+        interestId: $( "#interest" ).val() },
+        function(data) {
+
+            $( "#userList" ).empty();
+
+            var tableTop = "<table>";
+            var tableBottom = "<table>";
+            $( "#userList" ).append( tableTop, data, tableBottom );
         });
     });
 });

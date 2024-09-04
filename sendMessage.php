@@ -1,19 +1,30 @@
 <?php
-    require("session.php");
-    require("db.php");
+require("session.php");
+require("db.php");
 
-    $content = $_REQUEST["content"];
-    $roomId = $_REQUEST["roomId"];
-    $userId = $_SESSION["id"];
+$content = $_REQUEST["content"];
+$userId = $_SESSION["id"];
 
-    $sql = "INSERT INTO messages (roomId, userId, content) VALUES ($roomId, $userId, '$content')";
+$sql = "INSERT INTO messages (userId, content";
 
-    if( $conn->query($sql) == TRUE ) {
+//define query depends on type of the chat
+if( $chatType === "room" ) {
 
-        echo "success";
+    $roomId = $_REQUEST["id"];
+    $sql .= ", roomId) VALUES ($userId, '$content', $roomId)";
 
-    } else {
+} else if( $chatType === "private" ) {
 
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+    $profileId = $_REQUEST["id"];
+    $sql .= ", receiverId) VALUES ($userId, '$content', $profileId)";
+}
+
+if( $conn->query($sql) == TRUE ) {
+
+    echo "success";
+
+} else {
+
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
 ?>
