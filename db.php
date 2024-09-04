@@ -1,5 +1,5 @@
 <?php
-    $conn = new mysqli("localhost", "root", "", "partyGamez");
+    $conn = new mysqli("localhost", "root", "", "partygamez");
     
     if ($conn->connect_error) {
 

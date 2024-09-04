@@ -9,7 +9,7 @@
 
 <body>
 <?php
-require("../menu/db.php");
+require("db.php");
 session_start();
 
 if(isset($_POST["login"])) {
@@ -25,22 +25,27 @@ if(isset($_POST["login"])) {
         
         $_SESSION["id"] = $result->fetch_object()->id;
         $_SESSION["login"] = $login;
-        echo "Zalogowano pomyślnie";
+
+        echo "<div class='form'>";
+        echo "Zalogowano pomyślnie <br>";
+        echo "<a href='index.php'>Wróć na stronę główną</a>";
+        echo "</div>";
+
     } else {
         
-        echo "<div class='form'>
-            <h3>Nieprawidłowy login lub hasło.</h3><br/>
-            <p class='link'>Ponów próbę <a href='login.php'>logowania</a>.</p>
-            </div>";
+        echo "<div class='form'>";
+        echo "<h3>Nieprawidłowy login lub hasło.</h3><br/>";
+        echo "<p class='link'>Ponów próbę <a href='login.php'>logowania</a>.</p>";
+        echo "</div>";
     }
 } else {
     ?>
     <form class="form" method="post" name="login">
-        <h1 class="login-title">Logowanie</h1>
-        <input type="text" class="login-input" name="login" placeholder="Login" autofocus="true"/>
-        <input type="password" class="login-input" name="password" placeholder="Hasło"/>
-        <input type="submit" value="Zaloguj" name="submit" class="login-button"/>
-        <p class="link"><a href="registration.php">Zarejestruj się</a></p>
+        <h1>Logowanie</h1>
+        <input type="text" name="login" placeholder="Login" autofocus="true"/>
+        <input type="password" name="password" placeholder="Hasło"/>
+        <input type="submit" value="Zaloguj" name="submit"/>
+        <p><a href="registration.php">Zarejestruj się</a></p>
     </form>
     <?php
 }

@@ -6,13 +6,17 @@
     <title>Strona główna</title>
     <link rel="stylesheet" href="general.css">
 </head>
-<body>
-<?php
-    require("menu/menu.php");
-?>
 
-<h3>Czym jest Dwarf Gaming?</h3>
-<p>Dwarf Gaming jest stroną która pomaga Ci w znalezieniu osób które poszukują osób do grania.</p>
+<body>
+
+<div class='main'>
+    <?php
+        require("menu.php");
+    ?>
+
+    <h3>Czym jest Dwarf Gaming?</h3>
+    <p>Dwarf Gaming jest stroną która pomaga Ci w znalezieniu osób które poszukują osób do grania.</p>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,248 @@
+body {
+    
+    font-family: Roboto, sans-serif;
+}
+
+.main {
+
+    height: 100%;
+    margin: 0px;
+    color: rgb(31, 31, 31);
+
+    margin: 10px 20%;
+    
+}
+
+.bg-image {
+
+    height: 100%;
+    background-image: url("./pictures/background.jpg");
+
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+[type="checkbox"] {
+
+    display: inline-block;
+}
+
+
+
+
+#topBar {
+
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    background-image: url("./pictures/banner.jpg");
+}
+
+#topBar > #logo {
+
+    text-align: center;
+    font-size: 28px;
+}
+
+#topBar > #nav {
+
+    display: inline-flex;
+    justify-content: space-evenly;
+
+    padding: 0px;
+    width: 100%;
+    font-size: 24px;
+}
+
+#topBar a, .footer a {
+
+    color: white;
+    text-decoration: none;
+}
+
+#topBar li, .footer li { 
+
+    list-style-type: none;
+}
+
+
+
+
+.main > .filter label {
+
+    display: inline-block;
+    margin-right: 40px;
+}
+
+.main > #listOfRooms table {
+
+    width: 100%;
+}
+
+
+
+
+
+table {
+
+    text-align: left;
+}
+
+td {
+
+    padding-right: 20px;
+}
+
+input {
+
+    display: block;
+}
+
+
+
+/* profile.php */
+.profileContent {
+
+    padding: 20px 30px;
+}
+
+.profileContent * {
+
+    margin-bottom: 20px;
+}
+
+/* inputs instead of checkboxes */
+.profileContent input:not([type=checkbox]) {
+
+    height: 40px;
+    width: 100%;
+    font-size: larger;
+    border-radius: 3px;
+}
+
+.profileContent > .pfpLarge {
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+
+    border-radius: 10px;
+    aspect-ratio: 1 / 1;
+}
+
+
+
+.room {
+
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+
+}
+
+
+
+/* chat */
+#chat {
+
+    display: block;
+    width: 400px;
+
+    padding: 10px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#chat > #messages {
+
+    padding: 5px;
+    height: 400px;
+    outline: solid 1px black;
+}
+
+#chat > textarea {
+
+    display: block;
+    width: 100%;
+
+    resize: none;
+}
+
+
+.propositions {
+
+    width: 100%;
+}
+
+
+.gameProp {
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+.gameProp > input {
+
+    padding: 20px 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+
+.footer {
+
+    background-color: black;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.footer > ul {
+    
+    display: inline-flex;
+    justify-content: space-evenly;
+}
+
+
+
+
+.form {
+
+    width: 20%;
+    margin: auto;
+    text-align: center;
+}
+
+.form input {
+
+    height: 50px;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 0;
+}
+
+
+.createRoom {
+
+    width: 50%;
+}
+
+.createRoom > input:not([type=checkbox]), .createRoom > select {
+
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.createRoom > input[type=checkbox] {
+
+    margin-bottom: 25px;
+}
