@@ -26,16 +26,16 @@ if(isset($_POST["login"])) {
         $_SESSION["id"] = $result->fetch_object()->id;
         $_SESSION["login"] = $login;
 
-        echo "<div class='form'>";
-        echo "Zalogowano pomyślnie <br>";
-        echo "<a href='index.php'>Wróć na stronę główną</a>";
+        echo "<div class='messageBox'>";
+            echo "<h4>Zalogowano pomyślnie</h4>";
+            echo "<a href='index.php'>Wróć na stronę główną</a>";
         echo "</div>";
 
     } else {
         
-        echo "<div class='form'>";
-        echo "<h3>Nieprawidłowy login lub hasło.</h3><br/>";
-        echo "<p class='link'>Ponów próbę <a href='login.php'>logowania</a>.</p>";
+        echo "<div class='messageBox'>";
+            echo "<h4>Nieprawidłowy login lub hasło.</h4>";
+            echo "<p>Ponów próbę <a href='login.php'>logowania</a>.</p>";
         echo "</div>";
     }
 } else {

@@ -279,3 +279,28 @@ input {
 
     padding: 70px 0;
 }
+
+.messageBox {
+
+    margin: auto;
+    margin-top: 10%;
+    width: 30%;
+    padding: 30px;
+
+    text-align: center;
+
+    border-radius: 7px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.messageBox > h4 {
+
+    margin-bottom: 20px;
+}
+
+.messageBox > * {
+
+    margin: 0;
+}

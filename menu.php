@@ -12,6 +12,7 @@
     <ul id="nav">
         <li><a href="rooms.php">STOŁY</a></li>
         <li><a href="users.php">KRASNOLUDY</a></li>
+        <!--<li><a href="chats.php">ROZMOWY</a></li>-->
         <?php
         if(isset($_SESSION['login'])) {
 

@@ -7,19 +7,21 @@ if( !isset($_SESSION["login"]) ) {
 }
 
 $userId = $_SESSION["id"];
-$chatType = $_REQUEST["chatType"];
+$chatType = $_POST["chatType"];
+
 $sql = "SELECT userId, content, date FROM messages";
 
 //define query depends on type of the chat
 if( $chatType === "room" ) {
 
-    $roomId = $_REQUEST["id"];
+    $roomId = $_POST["id"];
     $sql .= " WHERE $roomId = roomId ORDER BY date";
 
 } else if( $chatType === "private" ) {
 
-    $profileId = $_REQUEST["id"];
+    $profileId = $_POST["id"];
     $sql .= " WHERE receiverId=$userId AND userId=$profileId OR receiverId=$profileId AND userId=$userId ORDER BY date";
+    echo "<p>$sql</p>";
 }
 
 $result = $conn->query($sql);

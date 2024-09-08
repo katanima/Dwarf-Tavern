@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomyślnie zaktualizowano profil!</title>
+    <link rel="stylesheet" href="general.css">
 </head>
 
 <body>
@@ -54,7 +55,9 @@
     $conn->close();
 ?>
 
-    <p>Pomyślnie zaktualizowano profil!</p>
-    <a href="profile.php">Wróć na profil</a>
+    <div class='messageBox'>
+        <h4>Pomyślnie zaktualizowano profil!</h4>
+        <a href="profile.php">Powrót</a>
+    </div>
 </body>
 </html>

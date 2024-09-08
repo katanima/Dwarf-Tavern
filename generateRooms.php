@@ -10,9 +10,12 @@ $sql = "SELECT * FROM rooms r WHERE id>0";
 
 //filter
 if( isset($_REQUEST['roomName'] ) && $_REQUEST['roomName'] != "" ) $sql .= " AND r.name='{$_REQUEST['roomName']}'"; //name
-( isset($_REQUEST['hideFull']) )? $hideFull = true : $hideFull = false;
-( isset($_REQUEST['considerInterests']) )? $considerInterests = true : $considerInterests = false ;
-echo $_REQUEST['considerInterests'];
+
+$hideFull = $_REQUEST['hideFull'];
+( $hideFull === 'true')? $hideFull = true : $hideFull = false;
+
+$considerInterests = $_REQUEST['considerInterests'];
+( $considerInterests === 'true')? $considerInterests = true : $considerInterests = false;
 $result = $conn->query($sql);
 
 /* set first row */
@@ -65,7 +68,7 @@ if( mysqli_num_rows( $isUserInRoom ) > 0 ) {
         echo "<td>$string</td>";
         echo "<td>{$userRoom->date}</td>";
         echo "<td> <button><a href='./room.php?roomId={$userRoom->id}'>WEJDŹ</a></button> </td>";
-        echo "<td> <button class='leaveRoom' data-room='{$userRoom->id}'>WYJDŹ</button> </td>";
+        echo "<td> <button><a href='./leaveRoom.php?roomId={$userRoom->id}'>WYJDŹ</a></button> </td>";
     echo "</tr>";
     echo "*Możesz przebywać w maksymalnie jednym pokoju";
 }
@@ -88,30 +91,9 @@ if( $result->num_rows > 0 ) {
         $users = $conn->query($sql);
         $userCounter = 0;
         $didUserEnter = false;
-        $considerInterestsBool = false;
 
         while( $user = $users->fetch_object() ) {
 
-            //if consider interests was checked check if at least one user in room has same interest
-            $sql = "SELECT interestId FROM usersInterests WHERE userId=$userId";
-
-            if( $considerInterests == true && $interests = $conn->query($sql) ) {
-
-                while( $interest = $interests->fetch_object() ) {
-                    echo $interests->fetch_object();
-                    //&& $considerInterestsBool == false 
-
-                    $sql = "SELECT id FROM usersInterests WHERE userId={$user->id} AND interestId={$interest->interestId}";
-                    $ddd = $conn->query($sql)->fetch_object();
-                    echo $sql;
-
-                    if( mysqli_num_rows( $ddd ) > 0 ) {
-
-                        $considerInterestsBool = true;
-                        break;
-                    }
-                }
-            }
             //count users
             ++$userCounter;
             //flag this room as entered
@@ -119,10 +101,33 @@ if( $result->num_rows > 0 ) {
         }
         ( $userCounter >= $room->usersLimit )? $limitReached = true : $limitReached = false;
 
-        if( $didUserEnter == true ) continue;
-        if( $hideFull == true && $limitReached == true ) continue;
-        if( $considerInterests == true && $considerInterestsBool == false ) continue;
 
+        $sql = "SELECT interestId FROM usersInterests WHERE userId=$userId";
+        $myInterests = $conn->query($sql);
+        $doesAnybodyHasCommonInterest = false;
+
+        if( $considerInterests ) {
+
+            while( $myInterest = $myInterests->fetch_object() ) {
+
+                if( $myInterest != null ) {
+    
+                    $interestId = $myInterest->interestId;
+                    $sql = "SELECT ui.id FROM usersInterests ui, usersInRooms ur WHERE ur.roomId={$room->id} AND ur.userId=ui.userId AND ui.interestId=$interestId";
+                    $usersWithCommonInterest = $conn->query($sql)->fetch_object();
+    
+                    if( $usersWithCommonInterest != null ) {
+        
+                        $doesAnybodyHasCommonInterest = true;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if( $didUserEnter == true ) continue;
+        if( $hideFull && $limitReached ) continue;
+        if( $considerInterests && !$doesAnybodyHasCommonInterest ) continue;
 
         /* define information of current users */
         $string = "$userCounter/{$room->usersLimit}";
@@ -148,6 +153,3 @@ if( $result->num_rows > 0 ) {
     echo "</table>";
 }
 ?>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="general.js"></script>

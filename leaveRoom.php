@@ -5,8 +5,6 @@
     $userId = $_SESSION["id"];
     $roomId = $_REQUEST["roomId"];
 
-    echo $roomID;
-
     $sql = "DELETE FROM usersInRooms WHERE userId=$userId AND roomID=$roomId";
     $conn->query($sql);                                                            
 

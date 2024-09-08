@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2024 at 11:12 PM
+-- Generation Time: Sep 08, 2024 at 02:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -73,7 +73,8 @@ INSERT INTO `interests` (`id`, `name`) VALUES
 
 CREATE TABLE `messages` (
   `id` int(10) UNSIGNED NOT NULL,
-  `roomId` int(10) UNSIGNED NOT NULL,
+  `roomId` int(10) UNSIGNED DEFAULT NULL,
+  `receiverId` int(10) UNSIGNED DEFAULT NULL,
   `userId` int(10) UNSIGNED NOT NULL,
   `content` text NOT NULL,
   `date` time NOT NULL DEFAULT current_timestamp()
@@ -83,9 +84,10 @@ CREATE TABLE `messages` (
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id`, `roomId`, `userId`, `content`, `date`) VALUES
-(4, 1, 1, 'llll', '13:15:50'),
-(5, 2, 1, 'aha', '19:24:50');
+INSERT INTO `messages` (`id`, `roomId`, `receiverId`, `userId`, `content`, `date`) VALUES
+(4, 1, 0, 1, 'llll', '13:15:50'),
+(5, 2, 0, 1, 'aha', '19:24:50'),
+(11, NULL, 2, 1, 'wwwwwww', '15:46:49');
 
 -- --------------------------------------------------------
 
@@ -127,7 +129,8 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`id`, `gameId`, `roomNumber`, `ownerId`, `name`, `description`, `password`, `usersLimit`, `strictLimit`, `date`) VALUES
 (1, 1, 0, 1, 'wwwww', '', '', 4, 0, '20:06:54'),
-(2, 2, 20, 1, 'aaaaa', '', '', 4, 0, '17:53:10');
+(2, 2, 20, 1, 'aaaaa', '', '', 1, 0, '17:53:10'),
+(3, 1, 2, 1, 'wwwww', '', '', 5, 0, '13:40:15');
 
 -- --------------------------------------------------------
 
@@ -152,8 +155,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `nick`, `email`, `password`, `bio`, `pfp`, `role`, `createDate`) VALUES
-(1, 'admin', 'adminOOO', 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', '', 'eiki.jpg', 1, '2024-08-30'),
-(2, 'bucket', 'bucket', 'bucket@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', 0, '2024-09-02');
+(1, 'admin', 'adminOOO', 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', 'idk man', 'eiki.jpg', 1, '2024-08-30'),
+(2, 'bucket', 'bucket', 'bucket@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', 0, '2024-09-02'),
+(5, 'jokerKebab', 'jokerKebab', 'jokerkebab@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', 0, '2024-09-08');
 
 -- --------------------------------------------------------
 
@@ -173,7 +177,7 @@ CREATE TABLE `usersinrooms` (
 --
 
 INSERT INTO `usersinrooms` (`id`, `userId`, `roomId`, `isBanned`) VALUES
-(6, 1, 2, 0);
+(7, 2, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -196,7 +200,7 @@ INSERT INTO `usersinterests` (`id`, `interestId`, `userId`) VALUES
 (4, 2, 1),
 (5, 3, 1),
 (6, 5, 1),
-(8, 1, 2);
+(9, 1, 2);
 
 --
 -- Indexes for dumped tables
@@ -220,7 +224,8 @@ ALTER TABLE `interests`
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`),
   ADD KEY `userId` (`userId`),
-  ADD KEY `roomId` (`roomId`);
+  ADD KEY `roomId` (`roomId`),
+  ADD KEY `receiverId` (`receiverId`);
 
 --
 -- Indexes for table `proposedgames`
@@ -279,7 +284,7 @@ ALTER TABLE `interests`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `proposedgames`
@@ -291,25 +296,25 @@ ALTER TABLE `proposedgames`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `usersinrooms`
 --
 ALTER TABLE `usersinrooms`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `usersinterests`
 --
 ALTER TABLE `usersinterests`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -319,8 +324,7 @@ ALTER TABLE `usersinterests`
 -- Constraints for table `messages`
 --
 ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`roomId`) REFERENCES `rooms` (`id`),
-  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`roomId`) REFERENCES `rooms` (`id`);
 
 --
 -- Constraints for table `rooms`

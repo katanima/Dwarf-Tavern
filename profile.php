@@ -67,11 +67,9 @@
             //private chat
             echo "<button id='privateChatButton'>Otwórz chat</button>";
             echo "<div class='privateChat'>";
-                echo "<div id='messages'>";
-                    require("generateMessages.php");
-                echo "</div>";
+                echo "<div id='messages'></div>";
                 echo "<br><textarea id='messageContent' rows='4' cols='50'></textarea>";
-                echo "<button id='sendMessage' data-id='$profileId' data-chatType='room'>SEND</button>";
+                echo "<button id='sendMessage' data-id='$profileId' data-type='private'>SEND</button>";
             echo "</div>";
         }
 

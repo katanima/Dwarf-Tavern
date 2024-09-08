@@ -6,7 +6,7 @@
         $sql = "SELECT role FROM users WHERE id=$userId";
         $role = $conn->query($sql)->fetch_object()->role;
         if( $role == 1 )
-            echo "<li><a href='adminPanel.php'>ADMINISTRATION</a></li>";
+            echo "<li style='margin-left: 20px;'><a href='adminPanel.php'>ADMINISTRATION</a></li>";
         ?>
     </ul>
 </div>

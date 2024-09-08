@@ -2,13 +2,16 @@ $(document).ready(function(){
 
     /* refresh chat every second */
     var intervalId = window.setInterval(refreshMessages, 1000);
+
     refreshMessages();
 
     function refreshMessages() {
 
+        //alert($("#sendMessage").data("id"));
+
         $.post("generateMessages.php",
-            { roomId: $("#sendMessage").data("id"),
-            chatType: $("#sendMessage").data("chatType") },
+            { id: $("#sendMessage").data("id"),
+            chatType: $("#sendMessage").data("type") },
             function(data) {
                 
             $("#messages").empty();
@@ -26,7 +29,7 @@ $(document).ready(function(){
         $.post("sendMessage.php",
         { content: $("#messageContent").val(),
         id: akapit.data("id"),
-        chatType: akapit.data("chatType") },
+        chatType: akapit.data("type") },
         function(data) {
 
             if( data === "success" ) {
@@ -44,6 +47,8 @@ $(document).ready(function(){
 
 
     /* refresh room list */
+    refreshList();
+
     $(".refresh").on("click", function() {
 
         refreshList();
@@ -53,8 +58,8 @@ $(document).ready(function(){
 
         $.post("generateRooms.php",
         { roomName: $("#roomName").val(),
-        hideFull: $("#hideFull").val(),
-        considerInterests: $("#considerInterests").val() },
+        hideFull: $("#hideFull").is(':checked'),
+        considerInterests: $("#considerInterests").is(':checked') },
         function(data) {
     
             $("#listOfRooms").empty();
@@ -173,12 +178,15 @@ $(document).ready(function(){
 
     /* leave room */
     $( ".leaveRoom" ).on("click", function() {
+        alert("xd");
 
         const akapit = $( this );
 
         $.post( "leaveRoom.php",
         { roomId: akapit.data( "room" ) },
         function(data) {
+
+            alert(data);
 
             refreshList();
         });

@@ -2,8 +2,9 @@
 require("session.php");
 require("db.php");
 
-$content = $_REQUEST["content"];
 $userId = $_SESSION["id"];
+$chatType = $_POST["chatType"];
+$content = $_POST["content"];
 
 $sql = "INSERT INTO messages (userId, content";
 

@@ -25,7 +25,7 @@
         <form class="createRoom" action="createRoom.php" method="POST">
             <input type="text" name="name" placeholder="Nazwa">
             <input type="text" name="description" placeholder="Opis (opcjonalne)">
-            <input type="text" name="description" placeholder="Hasło (opcjonalne)">
+            <!-- <input type="text" name="description" placeholder="Hasło (opcjonalne)"> -->
             <input type="number" name="usersLimit" placeholder="Ilość miejsc">
             <input type="checkbox" name="strictLimit" style="display:inline-block;"><label for="strictLimit">Restrykcyjny limit</label><br>
             <select name="gameId">
@@ -57,13 +57,13 @@
     </div>
     
     <button class="refresh">ODŚWIEŻ</button>
-    <div id="listOfRooms">
-    <?php require("generateRooms.php"); ?>
-    </div>
+    <div id="listOfRooms"></div>
 </div>
 
 <?php
     require("footer.php");
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="general.js"></script>
 </body>
 </html>

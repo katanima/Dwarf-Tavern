@@ -86,11 +86,10 @@
 <!-- chat -->
 <div id="chat">
     <h4>Chat</h4>
-    <div id="messages">
-    </div>
+    <div id="messages"></div>
     
     <br><textarea id="messageContent" rows="4" cols="50"></textarea>
-    <button id="sendMessage" data-room="<?php echo $roomId; ?>">send</button>
+    <button id="sendMessage" data-id="<?php echo $roomId; ?>" data-type='room'>SEND</button>
 </div>
 
 

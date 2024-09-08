@@ -22,15 +22,15 @@ if (isset($_POST["login"])) {
 
     if ($result) {
 
-        echo "<div class='form'>";
-        echo "<h3>Zostałeś pomyślnie zarejestrowany.</h3><br/>";
-        echo "<p class='link'>Kliknij tutaj, aby się <a href='login.php'>zalogować</a></p>";
+        echo "<div class='messageBox'>";
+            echo "<h4>Zostałeś pomyślnie zarejestrowany.</h4>";
+            echo "<p>Kliknij tutaj, aby się <a href='login.php'>zalogować</a></p>";
         echo "</div>";
     } else {
 
-        echo "<div class='form'>";
-        echo "<h3>Nie wypełniłeś wymaganych pól.</h3><br/>";
-        echo "<p class='link'>Kliknij tutaj, aby ponowić próbę <a href='registration.php'>rejestracji</a></p>";
+        echo "<div class='messageBox'>";
+            echo "<h4>Nie wypełniłeś wymaganych pól.</h4>";
+            echo "<p>Kliknij tutaj, aby ponowić próbę <a href='registration.php'>rejestracji</a></p>";
         echo "</div>";
     }
 } else {
