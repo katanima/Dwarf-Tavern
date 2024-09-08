@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2024 at 02:28 PM
+-- Generation Time: Sep 08, 2024 at 03:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -157,7 +157,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `login`, `nick`, `email`, `password`, `bio`, `pfp`, `role`, `createDate`) VALUES
 (1, 'admin', 'adminOOO', 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', 'idk man', 'eiki.jpg', 1, '2024-08-30'),
 (2, 'bucket', 'bucket', 'bucket@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', 0, '2024-09-02'),
-(5, 'jokerKebab', 'jokerKebab', 'jokerkebab@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', 0, '2024-09-08');
+(5, 'jokerKebab', 'jokerKebab', 'jokerkebab@gmail.com', '202cb962ac59075b964b07152d234b70', 'why so serious?', 'latest-2629018248.png', 0, '2024-09-08');
 
 -- --------------------------------------------------------
 
