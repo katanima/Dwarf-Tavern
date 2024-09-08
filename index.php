@@ -14,8 +14,8 @@
         require("menu.php");
     ?>
 
-    <h3>Czym jest Dwarf Gaming?</h3>
-    <p>Dwarf Gaming jest stroną która pomaga Ci w znalezieniu osób które poszukują osób do grania.</p>
+    <h3>Czym jest Dwarf Tavern?</h3>
+    <p>Dwarf Tavern jest stroną WWW, na której użytkownicy mogą integrować się poprzez granie w różnego rodzaju gry przeglądarkowe.</p>
 </div>
 
 </body>
