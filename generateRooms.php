@@ -144,7 +144,7 @@ if( $result->num_rows > 0 ) {
             echo "<td>{$room->date}</td>";
 
             /* if can join, generate button */ 
-            if( $userIsInRoom == false && ($strictLimit == false || $limitReached == false) ) {
+            if( !$userIsInRoom && ($strictLimit == false || $limitReached == false) ) {
 
                 echo "<td> <button class='join' data-roomId='{$room->id}'>DOŁĄCZ</button> </td>";
             }

@@ -36,6 +36,7 @@
     }
     
     //check if room has password
+    /*
     if( $room->password != "" ) {
 
         if( !(isset($_REQUEST["password"]) && md5( $_REQUEST["password"] ) == $room->password) ) {
@@ -43,7 +44,7 @@
             echo "password";
             exit;
         }
-    }
+    } */
 
     $sql = "INSERT INTO usersInRooms (userId, roomId) VALUES ($userId, $roomId)";
     $conn->query($sql);

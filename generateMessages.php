@@ -21,7 +21,6 @@ if( $chatType === "room" ) {
 
     $profileId = $_POST["id"];
     $sql .= " WHERE receiverId=$userId AND userId=$profileId OR receiverId=$profileId AND userId=$userId ORDER BY date";
-    echo "<p>$sql</p>";
 }
 
 $result = $conn->query($sql);

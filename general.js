@@ -109,11 +109,14 @@ $(document).ready(function(){
     /* join room */
     $(".join").on("click", function() {
 
+        alert("XD");
+
         $roomId = $(this).data("roomid");
 
         $.post("joinRoom.php",
         { roomId: $roomId },
         function(data) {
+            alert( data );
 
             if( data === "banned" ) {
 
@@ -132,6 +135,7 @@ $(document).ready(function(){
                 $url = "./room.php?roomId=" + $roomId;
                 location.replace( $url );
             }
+            
         });
     });
 
