@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     /* refresh chat every second */
     var intervalId = window.setInterval(refreshMessages, 1000);
@@ -10,46 +10,82 @@ $(document).ready(function(){
         //alert($("#sendMessage").data("id"));
 
         $.post("generateMessages.php",
-            { id: $("#sendMessage").data("id"),
-            chatType: $("#sendMessage").data("type") },
-            function(data) {
-                
-            $("#messages").empty();
-            $("#messages").append(data);
+            {
+                id: $("#sendMessage").data("id"),
+                chatType: $("#sendMessage").data("type")
+            },
+            function (data) {
 
-        });
+                $("#messages").empty();
+                $("#messages").append(data);
+
+
+                /* join room */
+                $(".join").on("click", function () {
+
+                    $roomId = $(this).data("roomid");
+
+                    $.post("joinRoom.php",
+                        { roomId: $roomId },
+                        function (data) {
+
+                            if (data === "banned") {
+
+                                alert("Posiadasz bana w tym pokoju.");
+
+                            } else if (data === "full") {
+
+                                alert("Pokój jest pełny.");
+
+                            } else if (data === "password") {
+
+
+
+                            } else {
+
+                                $url = "./room.php?roomId=" + $roomId;
+                                location.replace($url);
+                            }
+
+                        });
+                });
+
+
+            });
     }
 
 
     /* send message */
-    $("#sendMessage").on("click", function() {
+    $("#sendMessage").on("click", function () {
 
         const akapit = $(this);
 
         $.post("sendMessage.php",
-        { content: $("#messageContent").val(),
-        id: akapit.data("id"),
-        chatType: akapit.data("type") },
-        function(data) {
+            {
+                content: $("#messageContent").val(),
+                id: akapit.data("id"),
+                chatType: akapit.data("type")
+            },
+            function (data) {
 
-            if( data === "success" ) {
+                if (data === "success") {
 
-                $("#messageContent").empty();
+                    $("#messageContent").empty();
 
-                refreshMessages();
+                    refreshMessages();
 
-            } else {
+                } else {
 
-                alert(data);
-            }
-        });
+                    alert(data);
+                }
+            });
     });
 
 
     /* refresh room list */
     refreshList();
 
-    $(".refresh").on("click", function() {
+    $(".refresh").on("click", function () {
 
         refreshList();
     });
@@ -57,14 +93,16 @@ $(document).ready(function(){
     function refreshList() {
 
         $.post("generateRooms.php",
-        { roomName: $("#roomName").val(),
-        hideFull: $("#hideFull").is(':checked'),
-        considerInterests: $("#considerInterests").is(':checked') },
-        function(data) {
-    
-            $("#listOfRooms").empty();
-            $("#listOfRooms").append(data);
-        });
+            {
+                roomName: $("#roomName").val(),
+                hideFull: $("#hideFull").is(':checked'),
+                considerInterests: $("#considerInterests").is(':checked')
+            },
+            function (data) {
+
+                $("#listOfRooms").empty();
+                $("#listOfRooms").append(data);
+            });
     }
 
 
@@ -72,9 +110,9 @@ $(document).ready(function(){
     $(".createRoom").slideUp(0);
     var createFormOpen = false;
 
-    $("#createRoom").on("click", function() {
+    $("#createRoom").on("click", function () {
 
-        if( createFormOpen == false ) {
+        if (createFormOpen == false) {
 
             $(".createRoom").slideDown();
             createFormOpen = true;
@@ -91,140 +129,111 @@ $(document).ready(function(){
     $(".filter").slideUp(0);
     var filterOpen = false;
 
-    $("#filter").on("click", function() {
+    $("#filter").on("click", function () {
 
-        if( filterOpen == false ) {
+        if (filterOpen == false) {
 
             $(".filter").slideDown();
             filterOpen = true;
 
         } else {
-            
+
             $(".filter").slideUp();
             filterOpen = false;
         }
     });
 
 
-    /* join room */
-    $(".join").on("click", function() {
 
-        alert("XD");
-
-        $roomId = $(this).data("roomid");
-
-        $.post("joinRoom.php",
-        { roomId: $roomId },
-        function(data) {
-            alert( data );
-
-            if( data === "banned" ) {
-
-                alert( "Posiadasz bana w tym pokoju." );
-
-            } else if( data === "full" ) {
-                
-                alert( "Pokój jest pełny." );
-
-            } else if( data === "password" ) {
-
-                
-
-            } else {
-
-                $url = "./room.php?roomId=" + $roomId;
-                location.replace( $url );
-            }
-            
-        });
-    });
 
 
     /* display room edit form */
     $editMode = false;
-    $( "#editButton" ).on("click", function() {
+    $("#editButton").on("click", function () {
 
-        if( $editMode == false ) {
+        if ($editMode == false) {
 
-            $( "#editForm" ).css( "display", "block" );
-            $( "#roomInformations" ).css(" display", "none") ;
-            $( "#editButton" ).text( "Cofnij edytowanie" );
+            $("#editForm").css("display", "block");
+            $("#roomInformations").css(" display", "none");
+            $("#editButton").text("Cofnij edytowanie");
             $editMode = true;
 
         } else {
 
-            $( "#roomInformations" ).css( "display", "block" );
-            $( "#editForm" ).css( "display", "none" );
-            $( "#editButton" ).text( "Edytuj pokój" );
+            $("#roomInformations").css("display", "block");
+            $("#editForm").css("display", "none");
+            $("#editButton").text("Edytuj pokój");
             $editMode = false;
         }
     });
 
     /* edit room */
-    $( "#editRoom" ).on("click", function() {
+    $("#editRoom").on("click", function () {
 
-        const akapit = $( this );
+        const akapit = $(this);
 
-        $.post( "updateRoom.php",
-        { roomId: akapit.data( "room" ), ownerNickname: akapit.data( "owner" ), roomName: $( "#roomName" ).val(), roomDescription: $( "#roomDescription" ).val(), roomGame: $( "#roomGame" ).val(), roomLimit: $( "#roomLimit" ).val(), roomStrictLimit: $( "#roomStrictLimit" ).val() },
-        function(data) {
+        $.post("updateRoom.php",
+            { roomId: akapit.data("room"), ownerNickname: akapit.data("owner"), roomName: $("#roomName").val(), roomDescription: $("#roomDescription").val(), roomGame: $("#roomGame").val(), roomLimit: $("#roomLimit").val(), roomStrictLimit: $("#roomStrictLimit").val() },
+            function (data) {
 
-            $( "#roomInformations" ).css( "display", "block" );
-            $( "#editForm" ).css( "display", "none" );
-            $( "#editButton" ).text( "Edytuj pokój" );
-            $editMode = false;
+                $("#roomInformations").css("display", "block");
+                $("#editForm").css("display", "none");
+                $("#editButton").text("Edytuj pokój");
+                $editMode = false;
 
-            $( "#roomInformations" ).empty();
-            $( "#roomInformations" ).append( data );
-        });
+                $("#roomInformations").empty();
+                $("#roomInformations").append(data);
+            });
     });
 
 
     /* leave room */
-    $( ".leaveRoom" ).on("click", function() {
+    $(".leaveRoom").on("click", function () {
         alert("xd");
 
-        const akapit = $( this );
+        const akapit = $(this);
 
-        $.post( "leaveRoom.php",
-        { roomId: akapit.data( "room" ) },
-        function(data) {
+        $.post("leaveRoom.php",
+            { roomId: akapit.data("room") },
+            function (data) {
 
-            alert(data);
+                alert(data);
 
-            refreshList();
-        });
+                refreshList();
+            });
     });
 
 
     /* leave room */
-    $( "#leaveRoom" ).on("click", function() {
+    $("#leaveRoom").on("click", function () {
 
-        const akapit = $( this );
+        const akapit = $(this);
 
-        $.post( "leaveRoom.php",
-        { roomId: akapit.data( "room" ) },
-        function(data) {
+        $.post("leaveRoom.php",
+            { roomId: akapit.data("room") },
+            function (data) {
 
-            refreshList();
-            
-        });
+                refreshList();
+
+            });
     });
 
 
-    $( "#submit" ).on("click", function() {
+    $("#submit").on("click", function () {
 
-        $.post( "searchUsers.php",
-        { nick: $( "#nick" ).val(),
-        interestId: $( "#interest" ).val() },
-        function(data) {
+        $.post("searchUsers.php",
+            {
+                nick: $("#nick").val(),
+                interestId: $("#interest").val()
+            },
+            function (data) {
 
-            $( "#userList" ).empty();
+                $("#userList").empty();
 
-            var tableTop = "<table>";
-            var tableBottom = "<table>";
-            $( "#userList" ).append( tableTop, data, tableBottom );
-        });
+                var tableTop = "<table>";
+                var tableBottom = "<table>";
+                $("#userList").append(tableTop, data, tableBottom);
+            });
     });
 });
 
